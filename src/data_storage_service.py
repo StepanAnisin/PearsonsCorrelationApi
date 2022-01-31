@@ -1,7 +1,7 @@
 import psycopg2
 import json
 
-with open('config.json') as config_file:
+with open('config.json', 'r') as config_file:
     data = json.load(config_file)
 
 host = data['host']
@@ -15,7 +15,7 @@ users_stat_table = data['users_stat_table']
 
 def create_or_update_stat(user_id: int, value: float, p_value: float, x_data_type: str, y_data_type: str):
     # try to get statistics by user_id
-    rows = execute_command(f"select * from pearsonscorrelation "
+    rows = execute_command(f"select * from {users_stat_table} "
                                  f"where user_id = {user_id}")
     #if there is no statistics about user with such id
     if len(rows) == 0:
@@ -46,6 +46,6 @@ def execute_command(command):
     cursor = connection.cursor()
     cursor.execute(command)
     rows = cursor.fetchall()
-    #close the connection
+    # close the connection
     connection.close()
     return rows
