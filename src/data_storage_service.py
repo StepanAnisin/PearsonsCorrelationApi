@@ -11,8 +11,6 @@ password = data['password']
 port = data['port']
 users_stat_table = data['users_stat_table']
 
-#TODO сделать функции асинхронными
-
 def create_or_update_stat(user_id: int, value: float, p_value: float, x_data_type: str, y_data_type: str):
     # try to get statistics by user_id
     rows = execute_command(f"select * from {users_stat_table} "
@@ -34,18 +32,21 @@ def create_or_update_stat(user_id: int, value: float, p_value: float, x_data_typ
                               f"returning user_id ")
 
 def execute_command(command):
-    # open the connection
-    connection = psycopg2.connect(
-        host=host,
-        database=database,
-        user=user,
-        password=password,
-        port=port
-    )
-    connection.autocommit = True
-    cursor = connection.cursor()
-    cursor.execute(command)
-    rows = cursor.fetchall()
-    # close the connection
-    connection.close()
-    return rows
+    try:
+        # open the connection
+        connection = psycopg2.connect(
+            host=host,
+            database=database,
+            user=user,
+            password=password,
+            port=port
+        )
+        connection.autocommit = True
+        cursor = connection.cursor()
+        cursor.execute(command)
+        rows = cursor.fetchall()
+        # close the connection
+        connection.close()
+        return rows
+    except SystemError:
+            raise SystemError("Incorrect data format, should be YYYY-MM-DD")
