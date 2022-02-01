@@ -35,7 +35,7 @@ test_data1 = {
 #Case 2:
 #Multiple values in each list
 test_data2 = {
-  "user_id": 43,
+  "user_id": 45,
   "data": {
     "x_data_type": "temperature",
     "y_data_type": "height",
@@ -167,5 +167,5 @@ test_data6 = {
     "y": "test"
   }
 }
-response = requests.post(BASE + "calculate", json=test_data6)
+response = requests.post(BASE + "calculate", json=test_data2)
 print(response.json())

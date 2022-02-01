@@ -2,16 +2,13 @@ from flask import Flask, request, jsonify
 from flask_restful import Api
 from business_logic_service import *
 from data_storage_service import *
-
+from redis_worker import redis_queue
 app = Flask(__name__)
 api = Api(app)
 
 
-
-@app.route('/calculate', methods=['POST'])
-def calculate():
+def enqueue_calculate_task(data: dict):
     try:
-        json = request.json
         result = parse_and_calculate(json)
         # result["user_id"] - user_id
         # result["value"] - Pearson’s correlation coefficient
@@ -34,3 +31,13 @@ def calculate():
                 'y_data_type': result["y_data_type"],
             }
         }), 200
+
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    try:
+        data = request.json
+        job = redis_queue.enqueue(enqueue_calculate_task, data)
+        return jsonify({"Result": "Success", "job_id": job.id}), 200
+    except:
+        return jsonify({"Result": "Unsuccess", "Message": "Could not managed to enqueue background job"}), 500
