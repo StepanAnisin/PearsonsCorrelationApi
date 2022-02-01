@@ -158,6 +158,38 @@ test_data5 = {
   "test": ""
   }
 
+#Case 6:
+#Some of the keys has wrong field types
+test_data6 = {
+  "user_id": 42,
+  "data": {
+    "x_data_type": "sleep_hours",
+    "y_data_type": "morning_pulse",
+    "x": "test",
+    "y": "test"
+  }
+}
+#Case 7:
+#Some of the keys has wrong field types
+test_data7 = {
+  "user_id": 42,
+  "data": {
+    "x_data_type": "sleep_hours",
+    "y_data_type": "morning_pulse",
+    "x": [
+      {
+        "date": "test",
+        "value": 6.5
+      }
+    ],
+    "y": [
+      {
+        "date": "test",
+        "value": 6.5
+      }
+    ]
+  }
+}
 def test_business_logic_service():
     ###
     #Case 1:
@@ -244,6 +276,18 @@ def test_business_logic_service():
     ###
     with pytest.raises(KeyError):
         parse_data(test_data5)
+
+    ###
+    # Case 6:
+    ###
+    with pytest.raises(TypeError):
+        parse_data(test_data6)
+
+    ###
+    # Case 7:
+    ###
+    with pytest.raises(ValueError):
+        parse_data(test_data7)
 
 
 test_business_logic_service()
