@@ -1,0 +1,11 @@
+/.idea/.gitignore
+/src/.idea/.gitignore
+/.idea/misc.xml
+/src/.idea/misc.xml
+/.idea/modules.xml
+/src/.idea/modules.xml
+/.idea/PearsonsCorrelation.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/src/.idea/inspectionProfiles/profiles_settings.xml
+/src/.idea/src.iml
+/.idea/vcs.xml
