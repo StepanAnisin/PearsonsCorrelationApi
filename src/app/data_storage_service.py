@@ -50,4 +50,4 @@ def execute_command(command):
         connection.close()
         return rows
     except SystemError:
-            raise SystemError("Incorrect data format, should be YYYY-MM-DD")
+        raise SystemError("A database error has occurred")
