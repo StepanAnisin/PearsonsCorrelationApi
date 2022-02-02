@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Api
 from business_logic_service import *
 from data_storage_service import *
+from redis_worker import redis_queue
 
 app = Flask(__name__)
 api = Api(app)
@@ -34,3 +35,12 @@ def calculate():
                 'y_data_type': result["y_data_type"],
             }
         }), 200
+
+def some_function(a: int):
+    return jsonify({"HelloWorld"})
+
+
+@app.route('/test', methods=['GET'])
+def test():
+    job = redis_queue.enqueue(some_function, 1)
+    return jsonify({"Result": "Success", "job_id": job.id}), 200

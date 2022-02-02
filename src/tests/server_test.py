@@ -167,5 +167,8 @@ test_data6 = {
     "y": "test"
   }
 }
+
+response = requests.get(BASE + "test")
+print(response.json())
 response = requests.post(BASE + "calculate", json=test_data2)
 print(response.json())
