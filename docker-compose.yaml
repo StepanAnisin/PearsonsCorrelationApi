@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  db:
+    restart: always
+    build: ./src/postgresdb
+    ports:
+      - "5432:5432"
+
+  app:
+    restart: always
+    build: ./src/app
+    ports:
+      - "5000:5000"
+
+  redis:
+    image: redis:latest
