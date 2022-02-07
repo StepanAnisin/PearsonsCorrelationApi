@@ -1,8 +1,8 @@
 {
-    "host": "localhost",
+    "host": "db",
     "database":"usersstatistics",
     "user":"postgres",
-    "password":"piterpen123",
+    "password":"postgres",
     "port": 5432,
     "users_stat_table": "pearsonscorrelation"
 }
