@@ -14,13 +14,24 @@ def correlation():
     x_data_type = request.args.get('x_data_type', type = str)
     y_data_type = request.args.get('y_data_type', type = str)
     if user_id is None or x_data_type is None or y_data_type is None:
-        return jsonify({'Result': 'Bad request', 'Message': "Not enough data to complete request"}), 404
+        return jsonify({'Result': 'Bad request', 'Message': "Not enough data"
+                                                            " to complete request"}), 404
     else:
         rows = get_correlation_by_parameters(x_data_type, y_data_type, user_id)
         if len(rows) == 0:
-            return jsonify({'Result': 'Bad request', 'Message': "No data or given parameters"}), 404
+            return jsonify({'Result': 'Bad request', 'Message': "No data for given parameters"}), 404
         else:
-            return jsonify({'Result':'Success', 'Data': rows}), 200
+            return jsonify({'Result':'Success',
+                            'Data': {
+                            'user_id': rows[0][0],
+                            'x_data_type': rows[0][1],
+                            'y_data_type': rows[0][2],
+                            'correlation': {
+                                'value': rows[0][3],
+                                'p-value': rows[0][4]
+                            }
+                         }
+                        }), 200
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
