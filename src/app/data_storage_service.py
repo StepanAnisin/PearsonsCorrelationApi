@@ -12,6 +12,13 @@ password = data['password']
 port = data['port']
 users_stat_table = data['users_stat_table']
 
+def get_correlation_by_parameters(x_data_type: str, y_data_type: str, user_id: int):
+    rows = execute_command(f"select * from {users_stat_table} "
+                           f"where user_id = {user_id}"
+                           f"and x_data_type = '{x_data_type}'"
+                           f"and y_data_type = '{y_data_type}'")
+    return rows
+
 def create_or_update_stat(user_id: int, value: float, p_value: float, x_data_type: str, y_data_type: str):
     # try to get statistics by user_id
     rows = execute_command(f"select * from {users_stat_table} "
