@@ -38,7 +38,15 @@
 
 ` docker-compose up -d `
 
+# Docker containers #
+Для каждого элемента данного проекта реализован отдельный контейнер.
 
+* app: где запущено Flask web-приложение
+* redis: redis сервер
+* worker: достаёт из очереди задачу и выполняет её. Здесь реализована бизнес-логика
+* db: база данных Postgresql
+
+# Реализация задачи #
 
 #Postman коллекция для тестирования:
 https://www.getpostman.com/collections/fdcd782198f4623a7112
