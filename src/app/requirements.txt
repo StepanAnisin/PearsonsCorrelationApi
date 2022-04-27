@@ -1,4 +1,4 @@
-Flask==1.1.2
-Flask-RESTful==0.3.8
+Flask==2.1.0
+Flask-RESTful>0.3.8
 celery==5.2.3
 redis==4.1.2
